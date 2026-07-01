@@ -1,0 +1,4 @@
+Place your 1200x630px OG social preview image here as og-image.png
+Recommended: dark background (#0F172A) with the AI Founders Journey logo,
+tagline 'From Learners to Young Founders', and role color accents.
+Tools: Figma, Canva, or Adobe Express.

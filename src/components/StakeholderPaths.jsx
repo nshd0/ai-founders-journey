@@ -5,27 +5,37 @@ const stakeholders = [
   {
     id: 'schools', emoji: '🏫', label: 'For Schools',
     headline: 'A school-ready service, not a one-off programme',
-    points: ['Annual subscription model', 'Curriculum and assessments included', 'Role tracking and portfolio tools', 'Showcase and Demo Day support', 'NEP/NCF reporting built in']
+    points: ['Annual subscription model', 'Curriculum and assessments included', 'Role tracking and portfolio tools', 'Showcase and Demo Day support', 'NEP/NCF reporting built in'],
+    cta: 'Apply as a Pilot School',
+    ctaHref: 'https://forms.gle/yourGoogleFormLink'
   },
   {
     id: 'parents', emoji: '👨‍👩‍👧', label: 'For Parents',
     headline: 'Confidence, creativity, and future readiness',
-    points: ['Clear visibility of student progress', 'Skills that matter in the real world', 'Safe, guided, and structured experience', 'Portfolio evidence at every stage', 'Students graduate as capable builders']
+    points: ['Clear visibility of student progress', 'Skills that matter in the real world', 'Safe, guided, and structured experience', 'Portfolio evidence at every stage', 'Students graduate as capable builders'],
+    cta: 'Learn More',
+    ctaHref: 'https://wa.me/919999999999?text=Hi%2C%20I%27m%20a%20parent%20interested%20in%20AI%20Founders%20Journey'
   },
   {
     id: 'students', emoji: '🎒', label: 'For Students',
     headline: 'Discover your role. Build something real.',
-    points: ['Find your identity as a founder', 'Work in a real team with purpose', 'Build an AI-backed prototype', 'Present at a real Demo Day', 'Earn a portfolio and certification']
+    points: ['Find your identity as a founder', 'Work in a real team with purpose', 'Build an AI-backed prototype', 'Present at a real Demo Day', 'Earn a portfolio and certification'],
+    cta: 'Join the Journey',
+    ctaHref: 'https://forms.gle/yourGoogleFormLink'
   },
   {
     id: 'mentors', emoji: '🧑‍💼', label: 'For Mentors',
     headline: 'Shape the next generation of builders',
-    points: ['Guide student teams by domain expertise', 'Review prototypes and give feedback', 'Participate in Demo Day judging', 'Flexible commitment — virtual or in-person', 'Make a visible impact on young founders']
+    points: ['Guide student teams by domain expertise', 'Review prototypes and give feedback', 'Participate in Demo Day judging', 'Flexible commitment — virtual or in-person', 'Make a visible impact on young founders'],
+    cta: 'Become a Mentor',
+    ctaHref: 'mailto:naushad@ioe.school?subject=Mentor%20Interest'
   },
   {
     id: 'investors', emoji: '💡', label: 'For Investors',
     headline: 'From school projects to seed-ready prototypes',
-    points: ['Access early-stage student-built solutions', 'Co-brand the Demo Day experience', 'CSR and impact investment pathway', 'First-look rights on selected prototypes', 'Contribute to India\'s future-skills ecosystem']
+    points: ['Access early-stage student-built solutions', 'Co-brand the Demo Day experience', 'CSR and impact investment pathway', 'First-look rights on selected prototypes', 'Contribute to India\'s future-skills ecosystem'],
+    cta: 'Partner With Us',
+    ctaHref: 'mailto:naushad@ioe.school?subject=Investor%20Interest'
   }
 ]
 
@@ -73,9 +83,12 @@ export default function StakeholderPaths() {
                 </li>
               ))}
             </ul>
-            <a href="#closing"
+            <a
+              href={current.ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex mt-8 bg-innovator text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors">
-              Partner With Us
+              {current.cta} →
             </a>
           </div>
         )}

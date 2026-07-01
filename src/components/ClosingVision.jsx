@@ -25,15 +25,25 @@ export default function ClosingVision() {
           Partner with us to turn classrooms into launchpads for future builders, creators, and innovators.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="mailto:hello@aifoundersjourney.in"
+          <a
+            href="https://forms.gle/yourGoogleFormLink"
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-innovator text-white font-semibold px-8 py-3 rounded-full hover:bg-blue-700 transition-colors animate-pulse-slow">
             Apply as a Pilot School
           </a>
-          <a href="mailto:hello@aifoundersjourney.in"
+          <a
+            href="https://wa.me/919999999999?text=Hi%2C%20I%27m%20interested%20in%20AI%20Founders%20Journey"
+            target="_blank"
+            rel="noopener noreferrer"
             className="border border-white/30 text-white font-semibold px-8 py-3 rounded-full hover:bg-white/10 transition-colors">
-            Become a Mentor or Investor
+            WhatsApp Us
           </a>
         </div>
+        <p className="text-gray-500 text-sm mt-8">
+          Or email us at{' '}
+          <a href="mailto:naushad@ioe.school" className="text-innovator hover:underline">naushad@ioe.school</a>
+        </p>
       </div>
     </section>
   )
