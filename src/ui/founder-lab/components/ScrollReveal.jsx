@@ -7,6 +7,7 @@ export default function ScrollReveal({
   direction = 'up',
   distance = 32,
   className = '',
+  id,
 }) {
   const axes = {
     up:    { y: distance },
@@ -16,6 +17,7 @@ export default function ScrollReveal({
   }
   return (
     <motion.div
+      id={id}
       initial={{ opacity: 0, ...axes[direction] }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}

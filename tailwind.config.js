@@ -2,10 +2,39 @@
 export default {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
+  safelist: [
+    // Lab colours — used dynamically via template literals
+    { pattern: /bg-lab-(void|ink|graphite|surface|panel|border|muted|dim|ghost|light|white)/ },
+    { pattern: /text-lab-(void|ink|graphite|surface|panel|border|muted|dim|ghost|light|white)/ },
+    { pattern: /border-lab-(void|ink|graphite|surface|panel|border|muted|dim|ghost|light|white)/ },
+    // Signal colours
+    { pattern: /bg-signal-(blue|cyan|teal|violet|amber|coral|red|green)/ },
+    { pattern: /text-signal-(blue|cyan|teal|violet|amber|coral|red|green)/ },
+    { pattern: /border-signal-(blue|cyan|teal|violet|amber|coral|red|green)/ },
+    // Opacity variants
+    { pattern: /bg-signal-(blue|cyan|teal|violet|amber|coral)\/(10|15|20|25|30)/ },
+    { pattern: /border-signal-(blue|cyan|teal|violet|amber|coral)\/(10|15|20|25|30|40|50|60)/ },
+    // Shadows & glows
+    { pattern: /shadow-(glass|panel|glow-blue|glow-cyan|glow-violet|glow-amber|node)/ },
+    // Backdrop blur
+    { pattern: /backdrop-blur-(xs|glass|heavy)/ },
+    // Border radius
+    'rounded-panel', 'rounded-card',
+    // Grid cols (used dynamically in BentoCell)
+    'col-span-1', 'col-span-2', 'col-span-3', 'col-span-4',
+    'row-span-1', 'row-span-2', 'row-span-3',
+    // Animations
+    { pattern: /animate-(fade-up|fade-in|scan-line|data-stream|pulse-glow|orbit|flicker|beam|float)/ },
+    // Role colours
+    { pattern: /bg-(innovator|builder|creator|strategist|changemaker)/ },
+    { pattern: /text-(innovator|builder|creator|strategist|changemaker)/ },
+    // Background images / grid
+    { pattern: /bg-(grid-lab|grid-fine|radial-glow-blue|radial-glow-cyan|lab-gradient|signal-line)/ },
+    'bg-grid-64', 'bg-grid-32',
+  ],
   theme: {
     extend: {
       colors: {
-        /* ── Founder-Lab Palette ── */
         lab: {
           void:     '#080C14',
           ink:      '#0D1117',
@@ -20,14 +49,14 @@ export default {
           white:    '#F1F5F9',
         },
         signal: {
-          blue:    '#2563EB',
-          cyan:    '#06B6D4',
-          teal:    '#14B8A6',
-          violet:  '#7C3AED',
-          amber:   '#F59E0B',
-          coral:   '#F97316',
-          red:     '#EF4444',
-          green:   '#10B981',
+          blue:   '#2563EB',
+          cyan:   '#06B6D4',
+          teal:   '#14B8A6',
+          violet: '#7C3AED',
+          amber:  '#F59E0B',
+          coral:  '#F97316',
+          red:    '#EF4444',
+          green:  '#10B981',
         },
         glow: {
           blue:   'rgba(37,99,235,0.35)',
@@ -35,12 +64,11 @@ export default {
           violet: 'rgba(124,58,237,0.35)',
           amber:  'rgba(245,158,11,0.35)',
         },
-        /* ── Role Colors ── */
-        innovator:  '#2563EB',
-        builder:    '#14B8A6',
-        creator:    '#8B5CF6',
-        strategist: '#F59E0B',
-        changemaker:'#F97316',
+        innovator:   '#2563EB',
+        builder:     '#14B8A6',
+        creator:     '#8B5CF6',
+        strategist:  '#F59E0B',
+        changemaker: '#F97316',
       },
       fontFamily: {
         sans:    ['Inter', 'system-ui', 'sans-serif'],
@@ -53,12 +81,12 @@ export default {
         'display-md': ['clamp(1.5rem,3vw,2.5rem)',{ lineHeight: '1.2',  letterSpacing: '-0.02em' }],
       },
       backgroundImage: {
-        'grid-lab':        'linear-gradient(rgba(37,99,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.04) 1px,transparent 1px)',
-        'grid-fine':       'linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px)',
-        'radial-glow-blue':'radial-gradient(ellipse 80% 50% at 50% 0%,rgba(37,99,235,0.18),transparent)',
-        'radial-glow-cyan':'radial-gradient(ellipse 60% 40% at 80% 50%,rgba(6,182,212,0.12),transparent)',
-        'lab-gradient':    'linear-gradient(135deg,#080C14 0%,#0D1117 50%,#080C14 100%)',
-        'signal-line':     'linear-gradient(90deg,transparent,rgba(37,99,235,0.8),transparent)',
+        'grid-lab':         'linear-gradient(rgba(37,99,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.04) 1px,transparent 1px)',
+        'grid-fine':        'linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px)',
+        'radial-glow-blue': 'radial-gradient(ellipse 80% 50% at 50% 0%,rgba(37,99,235,0.18),transparent)',
+        'radial-glow-cyan': 'radial-gradient(ellipse 60% 40% at 80% 50%,rgba(6,182,212,0.12),transparent)',
+        'lab-gradient':     'linear-gradient(135deg,#080C14 0%,#0D1117 50%,#080C14 100%)',
+        'signal-line':      'linear-gradient(90deg,transparent,rgba(37,99,235,0.8),transparent)',
       },
       backgroundSize: {
         'grid-64': '64px 64px',
@@ -74,40 +102,40 @@ export default {
         'node':        '0 0 0 1px rgba(37,99,235,0.3), 0 0 20px rgba(37,99,235,0.2)',
       },
       animation: {
-        'fade-up':       'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards',
-        'fade-in':       'fadeIn 0.5s ease forwards',
-        'scan-line':     'scanLine 3s linear infinite',
-        'data-stream':   'dataStream 2s linear infinite',
-        'pulse-glow':    'pulseGlow 2s ease-in-out infinite',
-        'orbit':         'orbit 8s linear infinite',
-        'flicker':       'flicker 0.15s linear 2',
-        'beam':          'beam 4s ease-in-out infinite',
-        'float':         'float 6s ease-in-out infinite',
+        'fade-up':     'fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards',
+        'fade-in':     'fadeIn 0.5s ease forwards',
+        'scan-line':   'scanLine 3s linear infinite',
+        'data-stream': 'dataStream 2s linear infinite',
+        'pulse-glow':  'pulseGlow 2s ease-in-out infinite',
+        'orbit':       'orbit 8s linear infinite',
+        'flicker':     'flicker 0.15s linear 2',
+        'beam':        'beam 4s ease-in-out infinite',
+        'float':       'float 6s ease-in-out infinite',
       },
       keyframes: {
-        fadeUp:      { '0%':{ opacity:0, transform:'translateY(24px)' }, '100%':{ opacity:1, transform:'translateY(0)' } },
-        fadeIn:      { '0%':{ opacity:0 }, '100%':{ opacity:1 } },
-        scanLine:    { '0%':{ transform:'translateY(-100%)' }, '100%':{ transform:'translateY(100vh)' } },
-        dataStream:  { '0%':{ backgroundPosition:'200% center' }, '100%':{ backgroundPosition:'-200% center' } },
-        pulseGlow:   { '0%,100%':{ opacity:0.6 }, '50%':{ opacity:1 } },
-        orbit:       { '0%':{ transform:'rotate(0deg) translateX(60px) rotate(0deg)' }, '100%':{ transform:'rotate(360deg) translateX(60px) rotate(-360deg)' } },
-        flicker:     { '0%,100%':{ opacity:1 }, '50%':{ opacity:0.4 } },
-        beam:        { '0%,100%':{ transform:'scaleX(0)', opacity:0 }, '50%':{ transform:'scaleX(1)', opacity:1 } },
-        float:       { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(-12px)' } },
+        fadeUp:     { '0%':{ opacity:0, transform:'translateY(24px)' }, '100%':{ opacity:1, transform:'translateY(0)' } },
+        fadeIn:     { '0%':{ opacity:0 }, '100%':{ opacity:1 } },
+        scanLine:   { '0%':{ transform:'translateY(-100%)' }, '100%':{ transform:'translateY(100vh)' } },
+        dataStream: { '0%':{ backgroundPosition:'200% center' }, '100%':{ backgroundPosition:'-200% center' } },
+        pulseGlow:  { '0%,100%':{ opacity:0.6 }, '50%':{ opacity:1 } },
+        orbit:      { '0%':{ transform:'rotate(0deg) translateX(60px) rotate(0deg)' }, '100%':{ transform:'rotate(360deg) translateX(60px) rotate(-360deg)' } },
+        flicker:    { '0%,100%':{ opacity:1 }, '50%':{ opacity:0.4 } },
+        beam:       { '0%,100%':{ transform:'scaleX(0)', opacity:0 }, '50%':{ transform:'scaleX(1)', opacity:1 } },
+        float:      { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(-12px)' } },
       },
       transitionTimingFunction: {
-        'lab':     'cubic-bezier(0.16,1,0.3,1)',
-        'spring':  'cubic-bezier(0.34,1.56,0.64,1)',
+        'lab':    'cubic-bezier(0.16,1,0.3,1)',
+        'spring': 'cubic-bezier(0.34,1.56,0.64,1)',
       },
       backdropBlur: {
-        'xs': '2px',
+        'xs':    '2px',
         'glass': '16px',
         'heavy': '32px',
       },
       borderRadius: {
         'panel': '16px',
         'card':  '12px',
-      }
+      },
     }
   },
   plugins: []
