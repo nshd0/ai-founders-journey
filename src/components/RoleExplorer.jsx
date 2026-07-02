@@ -1,90 +1,175 @@
-import React, { useState, useRef } from 'react'
-import { useInView } from '../hooks/useInView'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { GlassPanel, SectionLabel, DataStream, ScrollReveal, GridBackground } from '../ui/founder-lab/index'
 
 const roles = [
   {
-    id: 'innovator', label: 'Innovator', emoji: '🧠', color: 'bg-innovator', border: 'border-innovator', text: 'text-innovator',
-    identity: 'The AI and data specialist on every team.',
-    contribution: 'Builds and trains AI models, works with data pipelines, designs intelligent features.',
-    skills: ['Pattern recognition', 'Data literacy', 'Responsible AI', 'AI feature design']
+    id: 'innovator', label: 'Innovator', emoji: '🧠', color: '#2563EB', glow: 'rgba(37,99,235,0.3)',
+    identity: 'The AI & data specialist on every founding team.',
+    contribution: 'Builds AI models, works with data pipelines, designs intelligent product features.',
+    skills: ['Pattern recognition', 'Data literacy', 'Responsible AI', 'AI feature design'],
+    accent: 'signal-blue',
   },
   {
-    id: 'builder', label: 'Builder', emoji: '⚙️', color: 'bg-builder', border: 'border-builder', text: 'text-builder',
-    identity: 'The technology and code specialist.',
-    contribution: 'Develops the product — app, web, automation, integrations.',
-    skills: ['Logic and sequencing', 'Prototyping', 'Tool selection', 'Debugging mindset']
+    id: 'builder', label: 'Builder', emoji: '⚙️', color: '#14B8A6', glow: 'rgba(20,184,166,0.3)',
+    identity: 'The technology & code specialist.',
+    contribution: 'Develops the product — app, web platform, automation, integrations.',
+    skills: ['Logic and sequencing', 'Prototyping', 'Tool selection', 'Debugging mindset'],
+    accent: 'signal-teal',
   },
   {
-    id: 'creator', label: 'Creator', emoji: '🎨', color: 'bg-creator', border: 'border-creator', text: 'text-creator',
-    identity: 'The design and UX specialist.',
-    contribution: 'Designs user experience, visuals, interface, and storytelling.',
-    skills: ['Visual communication', 'User empathy', 'Storytelling', 'Iteration']
+    id: 'creator', label: 'Creator', emoji: '🎨', color: '#8B5CF6', glow: 'rgba(139,92,246,0.3)',
+    identity: 'The design & UX specialist.',
+    contribution: 'Designs experience, interface, visuals, and storytelling across the product.',
+    skills: ['Visual communication', 'User empathy', 'Storytelling', 'Iteration'],
+    accent: 'signal-violet',
   },
   {
-    id: 'strategist', label: 'Strategist', emoji: '📊', color: 'bg-strategist', border: 'border-strategist', text: 'text-strategist',
-    identity: 'The business and market specialist.',
-    contribution: 'Owns the business model, market research, financials, and pitch.',
-    skills: ['Value proposition', 'Audience thinking', 'Pitching', 'Planning']
+    id: 'strategist', label: 'Strategist', emoji: '📊', color: '#F59E0B', glow: 'rgba(245,158,11,0.3)',
+    identity: 'The business & market specialist.',
+    contribution: 'Owns the business model, market research, financials, and investor pitch.',
+    skills: ['Value proposition', 'Audience thinking', 'Pitching', 'Planning'],
+    accent: 'signal-amber',
   },
   {
-    id: 'changemaker', label: 'Changemaker', emoji: '🌍', color: 'bg-changemaker', border: 'border-changemaker', text: 'text-changemaker',
-    identity: 'The domain and impact specialist.',
-    contribution: 'Grounds the team in the real problem, user research, SDG alignment.',
-    skills: ['Problem observation', 'Empathy', 'Validation', 'Impact thinking']
-  }
+    id: 'changemaker', label: 'Changemaker', emoji: '🌍', color: '#F97316', glow: 'rgba(249,115,22,0.3)',
+    identity: 'The domain & impact specialist.',
+    contribution: 'Grounds the team in real problems, user research, and SDG alignment.',
+    skills: ['Problem observation', 'Empathy', 'Validation', 'Impact thinking'],
+    accent: 'signal-coral',
+  },
 ]
 
 export default function RoleExplorer() {
   const [active, setActive] = useState(null)
-  const ref = useRef(null)
-  const inView = useInView(ref)
 
   return (
-    <section id="roles" ref={ref} className="py-24 px-6 bg-[#F7F5F0]">
-      <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-14 transition-all duration-700 ${
-          inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <span className="text-secondary text-sm font-semibold tracking-widest uppercase">Roles</span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-primary mt-3 mb-4">
-            Five Roles, One Founding Team
+    <GridBackground
+      id="roles"
+      className="relative py-28 bg-lab-graphite overflow-hidden"
+    >
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 100%,rgba(37,99,235,0.06),transparent)' }} />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
+        <ScrollReveal>
+          <SectionLabel color="#8B5CF6">Five Roles</SectionLabel>
+          <h2 className="text-display-lg font-display font-extrabold text-lab-white mb-4">
+            One Founding Team.<br />Five Distinct Worlds.
           </h2>
-          <p className="text-secondary text-lg max-w-xl mx-auto">
+          <p className="text-lab-ghost text-lg max-w-xl mb-14">
             Every student discovers a role. Every prototype team needs all five.
           </p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        </ScrollReveal>
+
+        {/* Role cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {roles.map((r, i) => (
-            <button key={r.id}
+            <motion.button
+              key={r.id}
               onClick={() => setActive(active === r.id ? null : r.id)}
-              className={`rounded-2xl p-6 text-left border-2 transition-all duration-500 ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              } ${
-                active === r.id
-                  ? `${r.border} bg-white shadow-lg`
-                  : 'border-transparent bg-white hover:shadow-md'
-              }`}
-              style={{ transitionDelay: `${i * 80}ms` }}>
-              <span className="text-3xl mb-3 block">{r.emoji}</span>
-              <h3 className={`font-bold text-lg mb-1 ${active === r.id ? r.text : 'text-primary'}`}>
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16,1,0.3,1] }}
+              whileHover={{ y: -4, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative rounded-panel p-6 text-left overflow-hidden group transition-all duration-300"
+              style={{
+                background: active === r.id ? `${r.color}15` : 'rgba(22,29,44,0.8)',
+                border: `1.5px solid ${active === r.id ? r.color + '60' : 'rgba(255,255,255,0.07)'}`,
+                boxShadow: active === r.id ? `0 0 40px ${r.color}20` : 'none',
+              }}
+            >
+              {/* Glow top edge */}
+              <div
+                className="absolute top-0 left-0 right-0 h-px transition-opacity duration-300"
+                style={{
+                  background: `linear-gradient(90deg,transparent,${r.color},transparent)`,
+                  opacity: active === r.id ? 1 : 0,
+                }}
+              />
+              <span className="text-4xl mb-4 block">{r.emoji}</span>
+              <h3 className="font-display font-bold text-lg mb-1 transition-colors duration-200"
+                style={{ color: active === r.id ? r.color : '#CBD5E1' }}>
                 {r.label}
               </h3>
-              <p className="text-secondary text-xs mb-3">{r.identity}</p>
-              {active === r.id && (
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                  <p className="text-sm text-primary mb-3">{r.contribution}</p>
-                  <div className="flex flex-wrap gap-1">
-                    {r.skills.map(s => (
-                      <span key={s} className={`text-xs px-2 py-0.5 rounded-full ${r.color} text-white`}>{s}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </button>
+              <p className="text-lab-dim text-xs leading-relaxed">{r.identity}</p>
+              <div
+                className="absolute bottom-0 left-0 right-0 h-px"
+                style={{ background: `linear-gradient(90deg,transparent,${r.color}40,transparent)` }}
+              />
+            </motion.button>
           ))}
         </div>
-        <p className="text-center text-secondary text-sm mt-8">Tap a role to explore it →</p>
+
+        {/* Expanded detail */}
+        <AnimatePresence mode="wait">
+          {active && (() => {
+            const r = roles.find(x => x.id === active)
+            return (
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 20, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                exit={{ opacity: 0, y: -10, height: 0 }}
+                transition={{ duration: 0.4, ease: [0.16,1,0.3,1] }}
+                className="overflow-hidden"
+              >
+                <div
+                  className="rounded-panel p-8 md:p-12 relative overflow-hidden"
+                  style={{
+                    background: `${r.color}08`,
+                    border: `1px solid ${r.color}25`,
+                  }}
+                >
+                  <div className="absolute inset-0 pointer-events-none"
+                    style={{ background: `radial-gradient(ellipse 70% 100% at 0% 50%,${r.color}12,transparent)` }} />
+                  <div className="relative grid md:grid-cols-2 gap-8">
+                    <div>
+                      <span className="font-mono text-xs tracking-widest uppercase mb-3 block" style={{ color: r.color }}>
+                        {r.label} Role
+                      </span>
+                      <p className="text-lab-light text-base mb-6 leading-relaxed">{r.contribution}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {r.skills.map(s => (
+                          <span key={s}
+                            className="font-mono text-xs px-3 py-1 rounded-full"
+                            style={{ background: `${r.color}18`, border: `1px solid ${r.color}35`, color: r.color }}>
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.4, ease: [0.34,1.56,0.64,1] }}
+                        className="relative w-32 h-32 rounded-full flex items-center justify-center text-6xl"
+                        style={{ background: `${r.color}15`, border: `2px solid ${r.color}30`, boxShadow: `0 0 60px ${r.color}20` }}
+                      >
+                        {r.emoji}
+                        <motion.div
+                          className="absolute inset-0 rounded-full"
+                          style={{ border: `1px solid ${r.color}30` }}
+                          animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                      </motion.div>
+                    </div>
+                  </div>
+                  <DataStream color={r.color} height={1} className="mt-8" />
+                </div>
+              </motion.div>
+            )
+          })()}
+        </AnimatePresence>
+
+        <p className="text-center font-mono text-xs text-lab-muted mt-8 tracking-widest">
+          SELECT A ROLE TO EXPLORE ITS WORLD →
+        </p>
       </div>
-    </section>
+    </GridBackground>
   )
 }
